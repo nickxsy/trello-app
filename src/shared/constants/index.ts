@@ -1,1 +1,1 @@
-export { ROUTER_PATHS } from './routes';
+export { ROUTER_PATHS, type RouterPathsType } from './routes';

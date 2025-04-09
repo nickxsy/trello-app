@@ -10,8 +10,6 @@ export function BoardList({
 }) {
   const { boards } = useBoards();
 
-  console.log(boards);
-
   return (
     <div className="mt-10">
       <h2 className="text-lg mb-2 font-semibold">Все доски</h2>
