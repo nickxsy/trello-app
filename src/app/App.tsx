@@ -1,23 +1,10 @@
-import { Footer } from '@/widgets/Footer'
-import { Header } from '@/widgets/Header'
-import { Suspense } from 'react'
-import { AppRouter } from './providers'
-import '@mantine/core/styles.css'
+import { AppLoader } from './app-loader';
+import { AppRouter } from './app-router';
 
-import './styles/index.css'
-
-function App() {
+export function App() {
   return (
-
-    <Suspense fallback="">
-      <Header />
-      <main className="content-page">
-        <AppRouter />
-      </main>
-      <Footer />
-    </Suspense>
-
-  )
+    <AppLoader>
+      <AppRouter />
+    </AppLoader>
+  );
 }
-
-export default App
