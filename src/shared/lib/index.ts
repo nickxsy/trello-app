@@ -1,3 +1,5 @@
+export { useGetConfirmation } from './confirmation';
+
 export { persistStorage } from './persist-storage';
 export {
   createStrictContext,
