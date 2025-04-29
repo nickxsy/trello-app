@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 
 import { ROUTER_PATHS, type RouterPathsType } from '@/shared/constants';
 
@@ -10,16 +10,12 @@ type NavLinksType = {
 
 const links: NavLinksType[] = [
   {
-    to: ROUTER_PATHS.BOARDS,
-    name: 'Доски'
-  },
-  {
     to: ROUTER_PATHS.USERS,
     name: 'Пользователи'
   },
   {
-    to: ROUTER_PATHS.TASKS,
-    name: 'Задачи'
+    to: ROUTER_PATHS.BOARDS,
+    name: 'Доски'
   }
 ];
 

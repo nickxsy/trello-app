@@ -2,17 +2,24 @@ import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 
 import { taskRepository } from './task.repository';
-import { Task } from './types';
+import type { CreateTaskData, Task, UpdateTaskData } from './types';
 
 export type TaskStore = {
   tasks: Task[];
+  getTaskById: (id: string) => Task | undefined;
   loadTasks: () => Promise<void>;
-  createTask: (data: { name: string; description?: string }) => Promise<void>;
-  removeTask: (taskId: string) => Promise<void>;
+  updateTask: (id: string, data: UpdateTaskData) => Promise<Task>;
+  createTask: (data: CreateTaskData) => Promise<Task>;
+  removeTask: (id: string) => Promise<void>;
+  removeUserTask: (authorTask: string) => Promise<void>;
 };
 
-export const useTasks = create<TaskStore>(set => ({
+export const useTasks = create<TaskStore>((set, get) => ({
   tasks: [],
+
+  getTaskById: id => {
+    return get().tasks.find(task => task.id === id);
+  },
 
   loadTasks: async () => {
     set({
@@ -21,20 +28,48 @@ export const useTasks = create<TaskStore>(set => ({
   },
 
   createTask: async data => {
-    const newTask = { id: nanoid(), ...data };
+    const newTask = { id: nanoid(), ...data, cols: [] };
+    await taskRepository.saveTask(newTask);
+    set({
+      tasks: await taskRepository.getTasks()
+    });
 
-    await taskRepository.addTask(newTask);
+    return newTask;
+  },
+
+  updateTask: async (id, data) => {
+    const task = await taskRepository.getTask(id);
+
+    if (!task) {
+      throw new Error();
+    }
+
+    const newTask = { ...task, ...data };
+
+    await taskRepository.saveTask(newTask);
+
+    set({
+      tasks: await taskRepository.getTasks()
+    });
+
+    return newTask as Task;
+  },
+
+  removeTask: async id => {
+    await taskRepository.removeTask(id);
 
     set({
       tasks: await taskRepository.getTasks()
     });
   },
 
-  removeTask: async (taskId: string) => {
-    await taskRepository.removeTask(taskId);
+  removeUserTask: async authorId => {
+    const tasksToRemove = get().tasks.filter(
+      task => task.authorId === authorId
+    );
 
-    set({
-      tasks: await taskRepository.getTasks()
-    });
+    for (const task of tasksToRemove) {
+      await taskRepository.removeTask(task.id);
+    }
   }
 }));

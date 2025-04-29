@@ -1,3 +1,3 @@
 export { useTasks } from './model/task.store';
 
-export { TasksList } from './ui/task-list';
+export type { Task, CreateTaskData, UpdateTaskData } from './model/types';

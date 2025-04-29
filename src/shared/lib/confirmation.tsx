@@ -4,8 +4,7 @@ export type ConfirmationParams = {
   title?: string;
   description?: string;
   closeText?: string;
-  confirmMessage?: string;
-  throwOnClose?: boolean;
+  confirmText?: string;
 };
 
 export type ConfirmationContext = {
