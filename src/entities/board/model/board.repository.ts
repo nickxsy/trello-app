@@ -1,21 +1,31 @@
 import { persistStorage } from '@/shared/lib';
 
-import { Board } from './types';
+import { Board, BoardPartial } from './types';
 
 const BOARDS_STORAGE_KEY = 'boards_storage';
 
 export const boardRepository = {
-  getBoards: () => {
+  getBoards: async (): Promise<BoardPartial[]> => {
     return persistStorage.getItemSafe<Board[]>(BOARDS_STORAGE_KEY, []);
   },
 
-  addBoard: async (value: Board) => {
-    const boards = await boardRepository.getBoards();
+  getBoard: async (id: string): Promise<Board | undefined> => {
+    return persistStorage
+      .getItemSafe<Board[]>(BOARDS_STORAGE_KEY, [])
+      .then(boards => boards.find(board => board.id === id));
+  },
 
-    await persistStorage.setItemSafe(
-      BOARDS_STORAGE_KEY,
-      boards.concat([value])
-    );
+  saveBoard: async (value: Board) => {
+    const boards = await boardRepository.getBoards();
+    const boardIndex = boards.findIndex(board => board.id === value.id);
+
+    if (boardIndex === -1) {
+      boards.push(value);
+    } else {
+      boards[boardIndex] = value;
+    }
+
+    await persistStorage.setItemSafe(BOARDS_STORAGE_KEY, boards);
   },
 
   removeBoard: async (boardId: string) => {

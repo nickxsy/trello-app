@@ -3,3 +3,8 @@ export type User = {
   name: string;
   avatarId: string;
 };
+
+export type CreateUserData = {
+  name: string;
+  avatarId: string;
+};
