@@ -11,7 +11,7 @@ export function TasksList() {
             key={task.id}
             className="px-5 py-2 border-b border-b-slate-3 flex gap-2 items-center "
           >
-            <div className="text-lg">{task.name}</div>
+            <div className="text-lg"></div>
           </div>
         ))}
       </div>
