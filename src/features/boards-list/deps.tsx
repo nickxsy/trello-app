@@ -1,6 +1,6 @@
-import { createStrictContext, useStrictContext } from '@/shared/lib';
-
 import { BoardPartial } from '@/entities/board';
+
+import { createStrictContext, useStrictContext } from '@/shared/lib';
 
 type BoardsListDeps = {
   canCreateBoard: () => boolean;

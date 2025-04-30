@@ -1,6 +1,6 @@
-import { RemoveIcon } from '@/shared/ui/ui-icons';
-
 import { UserPreview, useUsers } from '@/entities/user';
+
+import { RemoveIcon } from '@/shared/ui';
 
 import { useUsersListDeps } from '../deps';
 import { useRemoveUser } from '../model/use-remove-user';

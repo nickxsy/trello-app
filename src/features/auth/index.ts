@@ -1,9 +1,8 @@
 export {
-  useAbilityFactory,
-  useAbility,
   abilityContext,
-  subject
+  subject,
+  useAbility,
+  useAbilityFactory
 } from './model/use-ability';
-
-export { SignOutButton } from './ui/sign-out-button';
 export { SignInUserButton } from './ui/sign-in-button';
+export { SignOutButton } from './ui/sign-out-button';

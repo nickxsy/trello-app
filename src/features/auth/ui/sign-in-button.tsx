@@ -1,6 +1,6 @@
-import { UiButton } from '@/shared/ui';
-
 import { User } from '@/entities/user';
+
+import { UiButton } from '@/shared/ui';
 
 import { useSignInUser } from '../model/use-sign-in-user';
 

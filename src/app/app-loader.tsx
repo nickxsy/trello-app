@@ -1,11 +1,11 @@
 import { ReactNode, useEffect, useState } from 'react';
 
-import { UiPageSpinner } from '@/shared/ui';
-
 import { useBoards } from '@/entities/board';
 import { useSession } from '@/entities/session';
 import { useTasks } from '@/entities/task';
 import { useUsers } from '@/entities/user';
+
+import { UiPageSpinner } from '@/shared/ui';
 
 export function AppLoader({ children }: { children?: ReactNode }) {
   const loadUsers = useUsers(s => s.loadUsers);

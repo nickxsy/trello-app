@@ -5,12 +5,11 @@ import {
   useFormContext
 } from 'react-hook-form';
 
-import { useStrictContext } from '@/shared/lib';
-import { UiButton } from '@/shared/ui';
-import { UiTextField } from '@/shared/ui';
-
 import { Task, UpdateTaskData, useTasks } from '@/entities/task';
 import { UserSelect } from '@/entities/user';
+
+import { useStrictContext } from '@/shared/lib';
+import { UiButton, UiTextField } from '@/shared/ui';
 
 import { updateTaskModalDeps } from '../deps';
 
@@ -81,8 +80,8 @@ UpdateTaskForm.Fields = function Fields() {
             userId={value}
             onChangeUserId={onChange}
             error={fieldState.error?.message}
-            className="w-full"
             filterOptions={canAssigneUserToTask}
+            className="w-full"
           />
         )}
       />

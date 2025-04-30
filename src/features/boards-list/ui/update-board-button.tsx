@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import { useState } from 'react';
-
-import { UpdateIcon } from '@/shared/ui/ui-icons';
+import clsx from 'clsx';
 
 import { BoardPartial } from '@/entities/board';
+
+import { UpdateIcon } from '@/shared/ui';
 
 import { UpdateBoardModal } from './update-board-modal';
 

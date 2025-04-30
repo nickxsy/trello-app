@@ -1,33 +1,35 @@
-import clsx from "clsx";
-import { useBoardStore } from "../../model/use-board-store";
-import { BoardColumn } from "./board-column";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from '@hello-pangea/dnd';
+import clsx from 'clsx';
+
+import { useBoardStore } from '../../model/use-board-store';
+
+import { BoardColumn } from './board-column';
 
 export function Board({ className }: { className?: string }) {
   const boardStore = useBoardStore();
-  const columns = boardStore.useSelector((s) => s.board.cols);
-  const moveColumn = boardStore.useSelector((s) => s.moveColumn);
-  const moveCard = boardStore.useSelector((s) => s.moveBoardCard);
+  const columns = boardStore.useSelector(s => s.board.cols);
+  const moveColumn = boardStore.useSelector(s => s.moveColumn);
+  const moveCard = boardStore.useSelector(s => s.moveBoardCard);
 
   return (
     <DragDropContext
-      onDragEnd={(e) => {
-        if (e.type === "column") {
+      onDragEnd={e => {
+        if (e.type === 'column') {
           if (e.destination) {
             moveColumn(e.source.index, e.destination?.index ?? 0);
           }
         }
-        if (e.type === "card") {
+        if (e.type === 'card') {
           if (e.destination) {
             moveCard(
               {
                 colId: e.source.droppableId,
-                index: e.source.index,
+                index: e.source.index
               },
               {
                 colId: e.destination.droppableId,
-                index: e.destination.index,
-              },
+                index: e.destination.index
+              }
             );
           }
         }
@@ -38,7 +40,7 @@ export function Board({ className }: { className?: string }) {
           <div
             {...droppableProps}
             ref={innerRef}
-            className={clsx("flex  bg-gray-100 rounded-xl p-4 px-2", className)}
+            className={clsx('flex  bg-gray-100 rounded-xl p-4 px-2', className)}
           >
             {columns.map((col, index) => (
               <BoardColumn key={col.id} col={col} index={index} />

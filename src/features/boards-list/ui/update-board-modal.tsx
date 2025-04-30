@@ -1,11 +1,9 @@
 import { Controller, useForm } from 'react-hook-form';
 
-import { UiButton, UiTextField } from '@/shared/ui';
-import { UiModal } from '@/shared/ui/ui-modal';
-
 import { BoardPartial, UpdateBoardData } from '@/entities/board';
-import { UserSelect } from '@/entities/user';
-import { UserMultiSelect } from '@/entities/user';
+import { UserMultiSelect,UserSelect  } from '@/entities/user';
+
+import { UiButton, UiModal,UiTextField  } from '@/shared/ui';
 
 import { useUpdateBoard } from '../model/use-update-board';
 

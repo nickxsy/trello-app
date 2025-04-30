@@ -2,9 +2,9 @@ import { produce } from 'immer';
 import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 
-import { ConfirmationParams } from '@/shared/lib/confirmation';
-
 import { Board, BoardCard, boardRepository } from '@/entities/board';
+
+import { ConfirmationParams } from '@/shared/lib';
 
 export type BoardStore = {
   board: Board;
@@ -40,21 +40,21 @@ export const createBoardStore = ({
   board: Board;
   itemStore: BoardCardStore;
   getConfirmation: (params: ConfirmationParams) => Promise<boolean>;
-}) => {
-  return create<BoardStore>((set, get) => ({
+}) =>
+  create<BoardStore>((set, get) => ({
     board,
     addColumn: async title => {
-      const board = get().board;
+      const { board } = get();
 
       const newBoard = produce<Board>(draft => {
-        draft.cols.push({ id: nanoid(), title: title, items: [] });
+        draft.cols.push({ id: nanoid(), title, items: [] });
       })(board);
 
       return get().saveBoard(newBoard);
     },
 
     updateColumn: async (id, title) => {
-      const board = get().board;
+      const { board } = get();
 
       const newBoard = produce<Board>(draft => {
         const index = draft.cols.findIndex(col => col.id === id);
@@ -65,7 +65,7 @@ export const createBoardStore = ({
     },
 
     removeColumn: async id => {
-      const board = get().board;
+      const { board } = get();
 
       const confirmation = await getConfirmation({
         title: 'Удаление колонки',
@@ -85,7 +85,7 @@ export const createBoardStore = ({
     },
 
     moveColumn: async (index, newIndex) => {
-      const board = get().board;
+      const { board } = get();
 
       const newBoard = produce<Board>(draft => {
         const col = draft.cols[index];
@@ -102,7 +102,7 @@ export const createBoardStore = ({
 
     // board item methods
     addBoardCard: async (colId, title) => {
-      const board = get().board;
+      const { board } = get();
 
       const boardCard = await itemStore.createBoardCard(title);
 
@@ -115,7 +115,7 @@ export const createBoardStore = ({
     },
 
     updateBoardCard: async (colId, boardCard) => {
-      const board = get().board;
+      const { board } = get();
 
       const newBoardCard = await itemStore.updateBoardCard(boardCard);
       if (!newBoardCard) {
@@ -134,7 +134,7 @@ export const createBoardStore = ({
     },
 
     removeBoardCard: async (colId, boardCardId) => {
-      const board = get().board;
+      const { board } = get();
 
       const confirmation = await getConfirmation({
         title: 'Удаление карточки',
@@ -159,7 +159,7 @@ export const createBoardStore = ({
     },
 
     moveBoardCard: async (start, end) => {
-      const board = get().board;
+      const { board } = get();
 
       const startColIndex = board.cols.findIndex(col => col.id === start.colId);
       const endColIndex = board.cols.findIndex(col => col.id === end.colId);
@@ -186,4 +186,3 @@ export const createBoardStore = ({
       set({ board: value });
     }
   }));
-};

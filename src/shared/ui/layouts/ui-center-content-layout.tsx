@@ -1,7 +1,7 @@
-import clsx from 'clsx';
 import { ReactNode } from 'react';
+import clsx from 'clsx';
 
-export function UiCetnerContentLayout({
+export function UiCenterContentLayout({
   children,
   className
 }: {

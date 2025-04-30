@@ -1,9 +1,11 @@
-export { BoardActions } from './ui/board-actions';
-export { Board } from './ui/board/board';
+export { boardDepsContext } from './deps';
+export { BoardSearchProvider } from './model/board-search.store';
 export {
-  useBoardStoreFactory,
   boardStoreContext,
+  useBoardStoreFactory,
   useFetchBoard
 } from './model/use-board-store';
-
-export { boardDepsContext } from './deps';
+export { BoardStoreProvider } from './model/use-board-store';
+export { Board } from './ui/board/board';
+export { BoardActions } from './ui/board-actions';
+export { BoardSearch } from './ui/board-search';

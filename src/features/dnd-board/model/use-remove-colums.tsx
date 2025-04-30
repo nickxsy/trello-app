@@ -1,6 +1,6 @@
-import { useGetConfirmation } from '@/shared/lib/confirmation';
-
 import { BoardCol } from '@/entities/board';
+
+import { useGetConfirmation } from '@/shared/lib';
 
 import { useBoardStore } from './use-board-store';
 

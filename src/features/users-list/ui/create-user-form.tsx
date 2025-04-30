@@ -1,11 +1,9 @@
 import clsx from 'clsx';
 import { Controller, useForm } from 'react-hook-form';
 
-import { UiButton } from '@/shared/ui';
-import { UiImageSelect } from '@/shared/ui';
-import { UiTextField } from '@/shared/ui';
-
 import { getAvatarUrl, useUsers } from '@/entities/user';
+
+import { UiButton , UiImageSelect ,  UiTextField } from '@/shared/ui';
 
 import { CreateUserFormData } from '../model/use-create-user';
 
@@ -22,7 +20,6 @@ export function CreateUserForm({ className }: { className?: string }) {
       <h2 className="text-lg mb-2 font-semibold">Добавить пользователя</h2>
       <form
         onSubmit={handleSubmit(data => {
-          console.log(data);
           createUser?.(data);
           reset();
         })}

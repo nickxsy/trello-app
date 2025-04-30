@@ -1,4 +1,4 @@
-import { createStrictContext } from '@/shared/lib/react';
+import { createStrictContext } from '@/shared/lib';
 
 import { BoardCardStore } from './model/board.store';
 

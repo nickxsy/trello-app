@@ -1,13 +1,12 @@
 export {
-  useGetConfirmation,
+  type ConfirmationContext,
+  confirmationContext,
   type ConfirmationParams,
-  type ConfirmationContext
-} from './confirmation';
-
+  useGetConfirmation} from './confirmation';
 export { persistStorage } from './persist-storage';
 export {
+  ComposeChildren,
   createStrictContext,
   useAppearanceDelay,
-  useStrictContext,
-  ComposeChildren
+  useStrictContext
 } from './react';

@@ -1,4 +1,4 @@
-import { UiSelect } from '@/shared/ui/ui-select-field';
+import { UiSelect } from '@/shared/ui';
 
 import { useBoards } from '../model/board.store';
 import { BoardPartial } from '../model/types';

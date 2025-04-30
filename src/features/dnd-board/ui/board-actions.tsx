@@ -1,7 +1,7 @@
-import clsx from 'clsx';
 import { useState } from 'react';
+import clsx from 'clsx';
 
-import { UiButton } from '@/shared/ui/ui-button';
+import { UiButton } from '@/shared/ui';
 
 import { AddColumnModal } from './modals/add-column-modal';
 

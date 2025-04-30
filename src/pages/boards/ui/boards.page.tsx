@@ -1,7 +1,7 @@
-import { UiCetnerContentLayout } from '@/shared/ui/layouts/ui-center-content-layout';
-
 import { useAbility } from '@/features/auth';
 import { BoardsList, CreateBoardButton } from '@/features/boards-list';
+
+import { UiCenterContentLayout } from '@/shared/ui';
 
 import { BoardListProvider } from './board-list-providers';
 
@@ -10,7 +10,7 @@ export function BoardsPage() {
 
   return (
     <BoardListProvider>
-      <UiCetnerContentLayout className="py-10">
+      <UiCenterContentLayout className="py-10">
         <h1 className="text-3xl ">Доски</h1>
         {ability.can('create', 'Board') ? (
           <>
@@ -24,7 +24,7 @@ export function BoardsPage() {
             У вас нет прав для работы с этой страницей
           </div>
         )}
-      </UiCetnerContentLayout>
+      </UiCenterContentLayout>
     </BoardListProvider>
   );
 }

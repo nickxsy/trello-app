@@ -1,7 +1,7 @@
-import { useGetConfirmation } from '@/shared/lib';
-
 import { BoardPartial, UpdateBoardData, useBoards } from '@/entities/board';
 import { useSession } from '@/entities/session';
+
+import { useGetConfirmation } from '@/shared/lib';
 
 import { useBoardsListDeps } from '../deps';
 
@@ -15,7 +15,9 @@ export function useUpdateBoard(board?: BoardPartial) {
   const updateModalRaw = useBoards(s => s.updateBoard);
 
   const updateBoard = async (data: UpdateBoardData, onUpdate: () => void) => {
-    if (!board || !canUpdateBoard(board)) return;
+    if (!board || !canUpdateBoard(board)) {
+      return;
+    }
 
     if (ownerId !== data.ownerId) {
       const confirmation = await getConfirmation({
@@ -23,7 +25,9 @@ export function useUpdateBoard(board?: BoardPartial) {
           'Вы действительно хотите передать доску другому пользователю?'
       });
 
-      if (!confirmation) return;
+      if (!confirmation) {
+        return;
+      }
     }
 
     await updateModalRaw(board.id, data);

@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { MouseEventHandler, ReactNode } from 'react';
+import clsx from 'clsx';
 import { createPortal } from 'react-dom';
 
 type UiModalProps = {
@@ -19,7 +19,9 @@ export function UiModal({
 }: UiModalProps) {
   const handleClick: MouseEventHandler<HTMLDivElement> = e => {
     const inModal = (e.target as HTMLDivElement).closest('[data-id=modal]');
-    if (inModal) return;
+    if (inModal) {
+      return;
+    }
     onClose();
   };
 
@@ -60,6 +62,7 @@ export function UiModal({
     </div>
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return createPortal(modal, document.getElementById('modals')!);
 }
 

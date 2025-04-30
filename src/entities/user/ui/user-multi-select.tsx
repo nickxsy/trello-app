@@ -1,6 +1,6 @@
-import { UiMultipleSelect } from '@/shared/ui/ui-multiple-select';
+import { UiMultipleSelect } from '@/shared/ui';
 
-import { User } from '../model/types';
+import type { User } from '../model/types';
 import { useUsers } from '../model/users.store';
 
 import { UserPreview } from './user-preview';

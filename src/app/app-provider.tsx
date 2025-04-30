@@ -1,8 +1,8 @@
 import { Confirmations } from '@/widgets/confirmations';
 
-import { ComposeChildren } from '@/shared/lib/react';
-
 import { abilityContext, useAbilityFactory } from '@/features/auth';
+
+import { ComposeChildren } from '@/shared/lib';
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const ability = useAbilityFactory();

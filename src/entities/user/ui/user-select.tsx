@@ -1,9 +1,6 @@
-import { UiSelect } from '@/shared/ui/ui-select-field';
+import { User, UserPreview, useUsers } from '@/entities/user';
 
-import { User } from '../model/types';
-import { useUsers } from '../model/users.store';
-
-import { UserPreview } from './user-preview';
+import { UiSelect } from '@/shared/ui';
 
 export function UserSelect({
   className,

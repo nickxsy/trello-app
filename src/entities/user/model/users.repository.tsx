@@ -4,9 +4,7 @@ import { User } from './types';
 
 const USERS_STORAGE_KEY = 'users_storage';
 export const usersRepository = {
-  getUsers: () => {
-    return persistStorage.getItemSafe<User[]>(USERS_STORAGE_KEY, []);
-  },
+  getUsers: () => persistStorage.getItemSafe<User[]>(USERS_STORAGE_KEY, []),
   addUser: async (value: User) => {
     const users = await usersRepository.getUsers();
     await persistStorage.setItemSafe(USERS_STORAGE_KEY, users.concat([value]));

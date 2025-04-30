@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { useState } from 'react';
+import clsx from 'clsx';
 
 import { UiButton } from '@/shared/ui';
 

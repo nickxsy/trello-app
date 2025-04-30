@@ -5,18 +5,14 @@ import { Session } from './types';
 const SESSION_STORAGE_KEY = 'session_storage';
 
 export const sessionRepository = {
-  getSession: () => {
-    return persistStorage.getItemSafe<Session | undefined>(
+  getSession: () =>
+    persistStorage.getItemSafe<Session | undefined>(
       SESSION_STORAGE_KEY,
       undefined
-    );
-  },
+    ),
 
-  saveSession: (value: Session) => {
-    return persistStorage.setItemSafe(SESSION_STORAGE_KEY, value);
-  },
+  saveSession: (value: Session) =>
+    persistStorage.setItemSafe(SESSION_STORAGE_KEY, value),
 
-  clearSession: () => {
-    return persistStorage.setItemSafe(SESSION_STORAGE_KEY, undefined);
-  }
+  clearSession: () => persistStorage.setItemSafe(SESSION_STORAGE_KEY, undefined)
 };
