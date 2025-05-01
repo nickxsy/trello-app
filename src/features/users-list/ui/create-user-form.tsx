@@ -1,14 +1,15 @@
 import clsx from 'clsx';
 import { Controller, useForm } from 'react-hook-form';
 
-import { getAvatarUrl, useUsers } from '@/entities/user';
+import { getAvatarUrl } from '@/entities/user';
 
-import { UiButton , UiImageSelect ,  UiTextField } from '@/shared/ui';
+import { UiButton, UiImageSelect, UiTextField } from '@/shared/ui';
 
-import { CreateUserFormData } from '../model/use-create-user';
+import { CreateUserFormData, useCreateUser } from '../model/use-create-user';
 
 export function CreateUserForm({ className }: { className?: string }) {
-  const { createUser } = useUsers();
+  const createUser = useCreateUser();
+
   const { control, reset, handleSubmit } = useForm<CreateUserFormData>({
     defaultValues: {
       name: ''
@@ -16,47 +17,44 @@ export function CreateUserForm({ className }: { className?: string }) {
   });
 
   return (
-    <div className={className}>
-      <h2 className="text-lg mb-2 font-semibold">Добавить пользователя</h2>
-      <form
-        onSubmit={handleSubmit(data => {
-          createUser?.(data);
-          reset();
-        })}
-        className={clsx('flex flex-col gap-4')}
-      >
-        <Controller
-          control={control}
-          name="name"
-          rules={{ required: 'Имя пользователя - обязательное поле' }}
-          render={({ field, fieldState }) => (
-            <UiTextField
-              label="Имя нового пользователя"
-              inputProps={{ ...field }}
-              error={fieldState.error?.message}
-            />
-          )}
-        />
+    <form
+      onSubmit={handleSubmit(data => {
+        createUser?.(data);
+        reset();
+      })}
+      className={clsx(className, 'flex flex-col gap-4')}
+    >
+      <Controller
+        control={control}
+        name="name"
+        rules={{ required: 'Имя пользователя - обязательное поле' }}
+        render={({ field, fieldState }) => (
+          <UiTextField
+            label="Имя нового пользователя"
+            inputProps={{ ...field }}
+            error={fieldState.error?.message}
+          />
+        )}
+      />
 
-        <Controller
-          control={control}
-          name="avatarId"
-          rules={{ required: 'Аватар - обязательное поле' }}
-          render={({ field: { value, onChange }, fieldState }) => (
-            <UiImageSelect
-              label="Выберете аватар пользователя"
-              value={value}
-              onChange={onChange}
-              getSrc={getAvatarUrl}
-              images={Array.from({ length: 8 }, (_, i) => i + 1)}
-              error={fieldState.error?.message}
-            />
-          )}
-        />
-        <UiButton variant="primary" type="submit">
-          Создать
-        </UiButton>
-      </form>
-    </div>
+      <Controller
+        control={control}
+        name="avatarId"
+        rules={{ required: 'Аватар - обязательное поле' }}
+        render={({ field: { value, onChange }, fieldState }) => (
+          <UiImageSelect
+            label="Выберете аватар пользователя"
+            value={value}
+            onChange={onChange}
+            getSrc={getAvatarUrl}
+            images={Array.from({ length: 8 }, (_, i) => i + 1)}
+            error={fieldState.error?.message}
+          />
+        )}
+      />
+      <UiButton variant="primary" type="submit">
+        Создать
+      </UiButton>
+    </form>
   );
 }

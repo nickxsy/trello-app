@@ -1,12 +1,11 @@
 import { Draggable, Droppable } from '@hello-pangea/dnd';
 import clsx from 'clsx';
 
-import { BoardCard, BoardCol } from '@/entities/board';
-import { UserPreview, useUsers } from '@/entities/user';
+import { UserPreview } from '@/entities/user';
 
 import { DotsSixVertical, RemoveIcon } from '@/shared/ui';
 
-import { useBoardSearch } from '../../model/board-search.store';
+import { BoardCard, BoardCol } from '../../model/types';
 import { useBoardStore } from '../../model/use-board-store';
 
 export function BoardCards({
@@ -16,8 +15,6 @@ export function BoardCards({
   col: BoardCol;
   className?: string;
 }) {
-  const query = useBoardSearch(s => s.query);
-
   return (
     <Droppable direction="vertical" droppableId={col.id} type="card">
       {(provided, snapshot) => (
@@ -30,18 +27,14 @@ export function BoardCards({
             className
           )}
         >
-          {col.items
-            .filter(item =>
-              item.title.toLowerCase().includes(query.toLowerCase())
-            )
-            .map((item, index) => (
-              <BoardCardComponent
-                key={item.id}
-                card={item}
-                index={index}
-                colId={col.id}
-              />
-            ))}
+          {col.items.map((item, index) => (
+            <BoardCardComponent
+              key={item.id}
+              card={item}
+              index={index}
+              colId={col.id}
+            />
+          ))}
           {provided.placeholder}
         </div>
       )}
@@ -58,12 +51,7 @@ function BoardCardComponent({
   index: number;
   colId: string;
 }) {
-  const assignee = useUsers(s =>
-    card.assigneeId ? s.usersMap()[card.assigneeId] : null
-  );
-
-  const updateCard = useBoardStore().useSelector(s => s.updateBoardCard);
-  const removeCard = useBoardStore().useSelector(s => s.removeBoardCard);
+  const { updateBoardCard, removeBoardCard } = useBoardStore();
 
   return (
     <Draggable draggableId={card.id} index={index} key={card.id}>
@@ -78,20 +66,20 @@ function BoardCardComponent({
                 <DotsSixVertical />
               </div>
               <button
-                onClick={() => updateCard(colId, card)}
+                onClick={() => updateBoardCard(colId, card)}
                 className="hover:underline p-1 text-lg grow text-start leading-tight"
               >
                 {card.title}
               </button>
               <button
                 className="text-rose-600 p-1 rounded-full hover:bg-rose-100 transition-all opacity-0 action"
-                onClick={() => removeCard(colId, card.id)}
+                onClick={() => removeBoardCard(colId, card.id)}
               >
                 <RemoveIcon className="w-4 h-4" />
               </button>
             </div>
-            {assignee && (
-              <UserPreview className="mt-3" size="sm" {...assignee} />
+            {card.assignee && (
+              <UserPreview className="mt-3" size="sm" {...card.assignee} />
             )}
           </div>
         </div>

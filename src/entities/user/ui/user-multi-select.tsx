@@ -1,9 +1,11 @@
+import { useQuery } from '@tanstack/react-query';
+
+import { UserPreview } from '@/entities/user';
+
+import { UserDto } from '@/shared/api';
 import { UiMultipleSelect } from '@/shared/ui';
 
-import type { User } from '../model/types';
-import { useUsers } from '../model/users.store';
-
-import { UserPreview } from './user-preview';
+import { usersListQuery } from '../queries';
 
 export function UserMultiSelect({
   className,
@@ -18,9 +20,12 @@ export function UserMultiSelect({
   label?: string;
   onChangeUserIds: (ids: string[]) => void;
 }) {
-  const users = useUsers(s => s.users);
+  const { data: users } = useQuery({
+    ...usersListQuery(),
+    initialData: []
+  });
   const selectedUsers = users.filter(u => userIds.includes(u.id));
-  const onChangeUsers = (users: User[]) => {
+  const onChangeUsers = (users: UserDto[]) => {
     onChangeUserIds(users.map(u => u.id));
   };
 

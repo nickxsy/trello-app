@@ -10,10 +10,11 @@ import { Ability, abilityFactory } from './ability-factory';
 export const abilityContext = createStrictContext<Ability>();
 
 export const useAbility = () => useStrictContext(abilityContext);
+
 export { subject };
 
 export const useAbilityFactory = () => {
-  const session = useSession(s => s.currentSession);
+  const session = useSession();
 
   const ability = useMemo(() => abilityFactory(session), [session]);
 

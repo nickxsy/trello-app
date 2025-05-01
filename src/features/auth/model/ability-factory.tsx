@@ -5,7 +5,10 @@ import { type Session } from '@/entities/session';
 type CRUD = 'create' | 'read' | 'delete' | 'update';
 type Abilities =
   | ['sign-in-as' | 'sign-out', 'User' | { id: string }]
-  | [ CRUD | 'update-access', 'Board' | { ownerId: string, editorsIds: string[] }]
+  | [
+      CRUD | 'update-access',
+      'Board' | { ownerId: string; editorsIds: string[] }
+    ]
   | [CRUD, 'Board' | { ownerId: string; editorsIds: string[] }]
   | [CRUD, 'Tasks' | { authorId: string }];
 

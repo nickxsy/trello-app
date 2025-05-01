@@ -1,18 +1,44 @@
+import {
+  SignInUserButton,
+  SignOutButton,
+  subject,
+  useAbility
+} from '@/features/auth';
 import { CreateUserForm, UsersList } from '@/features/users-list';
 
 import { UiCenterContentLayout } from '@/shared/ui';
 
-import { UsersPageProviers } from './users-providers';
-
 export function UsersPage() {
+  const ability = useAbility();
+
+  const renderUserAuthAction = (user: { id: string }) => {
+    const canSignIn = ability.can(
+      'sign-in-as',
+      subject('User', { id: user.id })
+    );
+
+    const canSignOut = ability.can(
+      'sign-out',
+      subject('User', { id: user.id })
+    );
+
+    if (canSignIn) {
+      return <SignInUserButton userId={user.id} />;
+    }
+    if (canSignOut) {
+      return <SignOutButton />;
+    }
+  };
+
   return (
-    <UsersPageProviers>
-      <UiCenterContentLayout className="py-10">
-        <h1 className="text-3xl ">Пользователи</h1>
-        <CreateUserForm />
-        <h2 className="text-lg mb-2 font-semibold mt-10">Все пользователи</h2>
-        <UsersList />
-      </UiCenterContentLayout>
-    </UsersPageProviers>
+    <UiCenterContentLayout className="py-10">
+      <h1 className="text-3xl ">Пользователи</h1>
+      <h2 className="text-lg mb-2 font-semibold mt-10">
+        Добавить пользователя
+      </h2>
+      <CreateUserForm />
+      <h2 className="text-lg mb-2 font-semibold mt-10">Все пользователи</h2>
+      <UsersList renderUserAuthAction={renderUserAuthAction} />
+    </UiCenterContentLayout>
   );
 }

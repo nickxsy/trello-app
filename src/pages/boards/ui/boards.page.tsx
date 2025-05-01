@@ -3,7 +3,7 @@ import { BoardsList, CreateBoardButton } from '@/features/boards-list';
 
 import { UiCenterContentLayout } from '@/shared/ui';
 
-import { BoardListProvider } from './board-list-providers';
+import { BoardListProvider } from './providers';
 
 export function BoardsPage() {
   const ability = useAbility();

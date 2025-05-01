@@ -5,44 +5,46 @@ import {
   useFormContext
 } from 'react-hook-form';
 
-import { Task, UpdateTaskData, useTasks } from '@/entities/task';
 import { UserSelect } from '@/entities/user';
 
 import { useStrictContext } from '@/shared/lib';
 import { UiButton, UiTextField } from '@/shared/ui';
 
 import { updateTaskModalDeps } from '../deps';
+import { Task, UpdateTaskFormData } from '../model/types';
+import { useUpdateTask } from '../model/use-update-task';
 
 export function UpdateTaskForm({
   children,
   onSuccess,
-  taskId
+  task
 }: {
   children?: React.ReactNode;
-  onSuccess: (task: Task) => void;
-  taskId: string;
+  onSuccess: (task?: Task) => void;
+  task: Task;
 }) {
-  const task = useTasks(s => s.getTaskById(taskId));
-  const updateTask = useTasks(s => s.updateTask);
+  const updateTask = useUpdateTask(task.id);
 
-  const form = useForm<UpdateTaskData>({
+  const form = useForm<UpdateTaskFormData>({
     defaultValues: task
   });
 
-  const handleSubmit = form.handleSubmit(async data => {
-    const newTask = await updateTask(taskId, data);
+  const handleSumit = form.handleSubmit(async data => {
+    const newTask = await updateTask(data);
+    console.log(newTask);
+
     onSuccess(newTask);
   });
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={handleSubmit}>{children}</form>
+      <form onSubmit={handleSumit}>{children}</form>;
     </FormProvider>
   );
 }
 
 UpdateTaskForm.Fields = function Fields() {
-  const { control } = useFormContext<UpdateTaskData>();
+  const { control } = useFormContext<UpdateTaskFormData>();
   const { canAssigneUserToTask } = useStrictContext(updateTaskModalDeps);
 
   return (
@@ -80,8 +82,8 @@ UpdateTaskForm.Fields = function Fields() {
             userId={value}
             onChangeUserId={onChange}
             error={fieldState.error?.message}
-            filterOptions={canAssigneUserToTask}
             className="w-full"
+            filterOptions={canAssigneUserToTask}
           />
         )}
       />

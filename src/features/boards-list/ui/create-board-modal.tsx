@@ -1,14 +1,14 @@
 import { Controller, useForm } from 'react-hook-form';
 
-import { CreateBoardData } from '@/entities/board';
 import { UserMultiSelect } from '@/entities/user';
 
-import { UiButton, UiModal,UiTextField  } from '@/shared/ui';
+import { UiButton, UiModal, UiTextField } from '@/shared/ui';
 
+import { CreateBoardFormData } from '../model/types';
 import { useCreateBoard } from '../model/use-create-board';
 
 export function CreateBoardModal({ onClose }: { onClose: () => void }) {
-  const { control, handleSubmit } = useForm<CreateBoardData>({
+  const { control, handleSubmit } = useForm<CreateBoardFormData>({
     defaultValues: {
       title: '',
       editorsIds: []

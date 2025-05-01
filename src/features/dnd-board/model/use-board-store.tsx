@@ -1,76 +1,24 @@
-import { useCallback, useEffect, useState } from 'react';
-import { StoreApi, UseBoundStore } from 'zustand';
+import { createStrictContext, useStrictContext } from '@/shared/lib';
 
-import { type Board, boardRepository } from '@/entities/board';
+import { Board, BoardCard } from './types';
 
-import {
-  createStrictContext,
-  useGetConfirmation,
-  useStrictContext
-} from '@/shared/lib';
-
-import { boardDepsContext } from '../deps';
-
-import { BoardStore, createBoardStore } from './board.store';
-
-export const boardStoreContext =
-  createStrictContext<UseBoundStore<StoreApi<BoardStore>>>();
-
-export function BoardStoreProvider({
-  children,
-  board
-}: {
-  children?: React.ReactNode;
+export type BoardStore = {
   board: Board;
-}) {
-  const getConfirmation = useGetConfirmation();
-  const deps = useStrictContext(boardDepsContext);
 
-  const [boardStore] = useState(() =>
-    createBoardStore({ board, getConfirmation, itemStore: deps })
-  );
+  addColumn: (title: string) => Promise<void>;
+  updateColumn: (id: string, title: string) => Promise<void>;
+  removeColumn: (id: string) => Promise<void>;
+  moveColumn: (index: number, newIndex: number) => Promise<void>;
 
-  return (
-    <boardStoreContext.Provider value={boardStore}>
-      {children}
-    </boardStoreContext.Provider>
-  );
-}
-
-export const useBoardStore = () => {
-  const useSelector = useStrictContext(boardStoreContext);
-  return { useSelector };
+  addBoardCard: (colId: string, title: string) => Promise<void>;
+  updateBoardCard: (colId: string, boardCard: BoardCard) => Promise<void>;
+  removeBoardCard: (colId: string, boardCardId: string) => Promise<void>;
+  moveBoardCard: (
+    start: { colId: string; index: number },
+    end: { colId: string; index: number }
+  ) => Promise<void>;
 };
 
-export const useFetchBoard = (boardId?: string) => {
-  const [board, setBoard] = useState<Board>();
+export const boardStoreContext = createStrictContext<BoardStore>();
 
-  const fetchBoard = useCallback(() => {
-    if (!boardId) {
-      return;
-    }
-    boardRepository.getBoard(boardId).then(data => {
-      if (!data) {
-        return;
-      }
-      setBoard(data);
-    });
-  }, [boardId]);
-
-  useEffect(() => {
-    fetchBoard();
-  }, [fetchBoard]);
-
-  return { board, fetchBoard };
-};
-
-export const useBoardStoreFactory = (board: Board) => {
-  const getConfirmation = useGetConfirmation();
-  const deps = useStrictContext(boardDepsContext);
-
-  const [boardStore] = useState(() =>
-    createBoardStore({ board, getConfirmation, itemStore: deps })
-  );
-
-  return { boardStore };
-};
+export const useBoardStore = () => useStrictContext(boardStoreContext);

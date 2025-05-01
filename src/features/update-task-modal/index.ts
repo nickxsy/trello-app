@@ -1,2 +1,2 @@
 export { updateTaskModalDeps } from './deps';
-export { useUpdateTaskModal } from './model/use-update-task-modal';
+export { useUpdateTaskModal } from './ui/use-update-task-modal';

@@ -1,7 +1,6 @@
-import { BoardPartial } from '@/entities/board';
-
 import { RemoveIcon } from '@/shared/ui';
 
+import { BoardPartial } from '../model/types';
 import { useRemoveBoard } from '../model/use-remove-board';
 
 export function RemoveBoardButton({ board }: { board: BoardPartial }) {

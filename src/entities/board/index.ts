@@ -1,10 +1,6 @@
-export { boardRepository } from './model/board.repository';
-export { useBoards } from './model/board.store';
-export type {
-  Board,
-  BoardCard,
-  BoardCol,
-  BoardPartial,
-  CreateBoardData,
-  UpdateBoardData
-} from './model/types';
+export {
+  boardByIdQuery,
+  boardsListQuery,
+  useInvalidateBoardsList
+} from './queries';
+export { BoardSelect } from './ui/board-select';

@@ -1,3 +1,27 @@
 {
-  "prettier.enable": true
+  "prettier.enable": true,
+  "editor.lineNumbers": "off",
+  "editor.folding": false,
+  "editor.showFoldingControls": "never",
+
+  "editor.guides.indentation": false,
+  "editor.renderLineHighlight": "none",
+  "workbench.editor.decorations.badges": false,
+  "workbench.editor.decorations.colors": false,
+  "editor.glyphMargin": false,
+  "zenMode.hideLineNumbers": true,
+  "zenMode.fullScreen": true,
+  "zenMode.restore": true,
+  "editor.scrollbar": {
+    "verticalScrollbarSize": 2,
+    "horizontalScrollbarSize": 2,
+    "alwaysConsumeMouseWheel": false
+  },
+  "editor.minimap.enabled": false,
+  "workbench.editor.tabSizing": "fit",
+  "window.density.editorTabHeight": "compact",
+  "editor.accessibilitySupport": "off",
+  "symbols.hidesExplorerArrows": true,
+  "workbench.editor.compactTabs": true,
+  "zenMode.showTabs": "single"
 }

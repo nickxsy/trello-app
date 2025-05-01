@@ -1,6 +1,6 @@
 import { Controller, useForm } from 'react-hook-form';
 
-import { UiButton , UiModal , UiTextField } from '@/shared/ui';
+import { UiButton, UiModal, UiTextField } from '@/shared/ui';
 
 import { useBoardStore } from '../../model/use-board-store';
 
@@ -11,12 +11,8 @@ export function UpdateColumnModal({
   columnId: string;
   onClose: () => void;
 }) {
-  const boardStore = useBoardStore();
-
-  const col = boardStore.useSelector(s =>
-    s.board.cols.find(c => c.id === columnId)
-  );
-  const updateColumn = useBoardStore().useSelector(s => s.updateColumn);
+  const { board, updateColumn } = useBoardStore();
+  const col = board?.cols.find(c => c.id === columnId);
 
   const { control, handleSubmit } = useForm<{ title: string }>({
     defaultValues: {

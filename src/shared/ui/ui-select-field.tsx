@@ -3,11 +3,7 @@ import {
   Combobox,
   ComboboxButton,
   ComboboxOption,
-  ComboboxOptions,
-  Listbox,
-  ListboxButton,
-  ListboxOption,
-  ListboxOptions
+  ComboboxOptions
 } from '@headlessui/react';
 import clsx from 'clsx';
 

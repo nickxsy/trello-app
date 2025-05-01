@@ -8,13 +8,15 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
-import importPlugin from 'eslint-plugin-import'
+import importPlugin from 'eslint-plugin-import';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   jseslint.configs.recommended,
   ...tseslint.configs.strict,
   ...tseslint.configs.stylistic,
+  ...pluginQuery.configs['flat/recommended'],
   {
     files: ['**/*.{ts,tsx}'],
     ignores: ['vite.config.ts', 'dist/**/*', 'build/**/*', 'node_modules/**/*'],
@@ -35,9 +37,9 @@ export default [
       '@typescript-eslint': tsPlugin,
       'react-hooks': reactHooks,
       boundaries,
-       import: importPlugin,
+      import: importPlugin,
       'simple-import-sort': simpleImportSort,
-      unicorn: eslintPluginUnicorn,
+      unicorn: eslintPluginUnicorn
     },
     rules: {
       ...tsPlugin.configs['recommended'].rules,
@@ -45,7 +47,7 @@ export default [
       'default-case': 'error',
       'default-case-last': 'warn',
       'dot-notation': 'warn',
-      "quotes": [2, "single", { "avoidEscape": true }],
+      quotes: [2, 'single', { avoidEscape: true }],
       'no-caller': 'error',
       'no-console': 'warn',
       'no-eval': 'error',
@@ -81,37 +83,39 @@ export default [
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       'import/no-duplicates': 'error',
-      'simple-import-sort/imports': ['error',{
-
-        "groups": [
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
             ['^type:\\u0000', '^type:react$', '^type:@?\\w', '^type:'],
 
-      // 1. Side effect imports
-      ['^\\u0000'],
+            // 1. Side effect imports
+            ['^\\u0000'],
 
-      // 2. React и внешние пакеты
-      ['^react$', '^@?\\w'],
+            // 2. React и внешние пакеты
+            ['^react$', '^@?\\w'],
 
-      // 3. Абсолютные импорты (например, alias @/)
-      ['^@/app'],
-      ['^@/pages'],
-      [ '^@/widgets'],
-      [ '^@/features'],
-      [ '^@/entities'],
-      ['^@/shared'],
+            // 3. Абсолютные импорты (например, alias @/)
+            ['^@/app'],
+            ['^@/pages'],
+            ['^@/widgets'],
+            ['^@/features'],
+            ['^@/entities'],
+            ['^@/shared'],
 
-      // 4. Относительные: вверх и текущая папка
-      ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
-      ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
+            // 4. Относительные: вверх и текущая папка
+            ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
+            ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
 
-      // 5. Стили (модули и обычные)
-      ['^.+\\.module\\.(css|scss)$'],
-      ['^.+\\.(css|scss)$'],
+            // 5. Стили (модули и обычные)
+            ['^.+\\.module\\.(css|scss)$'],
+            ['^.+\\.(css|scss)$'],
 
-      // 6. Медиа
-      ['^.+\\.(gif|png|svg|jpg|jpeg|webp)$']
-        ]
-      }],
+            // 6. Медиа
+            ['^.+\\.(gif|png|svg|jpg|jpeg|webp)$']
+          ]
+        }
+      ],
       'simple-import-sort/exports': ['error'],
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       curly: 'warn',
@@ -128,7 +132,7 @@ export default [
                 [
                   'shared',
                   {
-                    segment: 'lib'
+                    segment: 'api'
                   }
                 ]
               ],

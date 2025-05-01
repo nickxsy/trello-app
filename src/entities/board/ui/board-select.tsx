@@ -1,7 +1,9 @@
+import { useQuery } from '@tanstack/react-query';
+
+import { BoardPartialDto } from '@/shared/api';
 import { UiSelect } from '@/shared/ui';
 
-import { useBoards } from '../model/board.store';
-import { BoardPartial } from '../model/types';
+import { boardsListQuery } from '../queries';
 
 export function BoardSelect({
   className,
@@ -19,14 +21,19 @@ export function BoardSelect({
   label?: string;
   onChangeBoardId: (id?: string) => void;
   required?: boolean;
-  filterOptions?: (board: BoardPartial) => boolean;
+  filterOptions?: (board: BoardPartialDto) => boolean;
 }) {
-  const board = useBoards(s => (boardId ? s.getBoardById(boardId) : undefined));
-  const boards = useBoards(s => s.boards.filter(filterOptions));
+  const { data: boards } = useQuery({
+    ...boardsListQuery(),
+    select: data => data.filter(filterOptions),
+    initialData: []
+  });
+
+  const board = boards.find(board => board.id === boardId);
 
   const options = required ? boards : [undefined, ...boards];
 
-  const onChangeBoard = (board?: BoardPartial) => {
+  const onChangeBoard = (board?: BoardPartialDto) => {
     onChangeBoardId(board?.id);
   };
 

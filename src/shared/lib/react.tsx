@@ -7,6 +7,9 @@ import {
   startTransition,
   useContext,
   useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
   useState
 } from 'react';
 
@@ -68,5 +71,24 @@ export function ComposeChildren({ children }: { children: React.ReactNode }) {
         last
       )}
     </>
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useEventCallback<Fn extends (...args: any[]) => unknown>(
+  fn: Fn
+) {
+  const ref = useRef<Fn>(fn);
+  useLayoutEffect(() => {
+    ref.current = fn;
+  });
+
+  return useMemo(
+    () =>
+      ((...args: unknown[]) => {
+        const { current } = ref;
+        return current(...args);
+      }) as Fn,
+    []
   );
 }

@@ -1,6 +1,6 @@
 import { Controller, useForm } from 'react-hook-form';
 
-import { UiButton , UiModal , UiTextField } from '@/shared/ui';
+import { UiButton, UiModal, UiTextField } from '@/shared/ui';
 
 import { useBoardStore } from '../../model/use-board-store';
 
@@ -11,7 +11,7 @@ export function AddColumnModal({ onClose }: { onClose: () => void }) {
     }
   });
 
-  const addColumn = useBoardStore().useSelector(s => s.addColumn);
+  const { addColumn } = useBoardStore();
 
   const onSubmit = handleSubmit(async data => {
     await addColumn(data.name);

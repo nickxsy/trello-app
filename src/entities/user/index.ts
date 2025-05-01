@@ -1,6 +1,4 @@
-export { UsersList } from '../../features/users-list/ui/user-list';
-export type { User } from './model/types';
-export { useUsers } from './model/users.store';
+export { useInvalidateUsersList, usersListQuery } from './queries';
 export { AvatarsList } from './ui/avatar-list';
 export { getAvatarUrl } from './ui/get-avatar-url';
 export { UserMultiSelect } from './ui/user-multi-select';

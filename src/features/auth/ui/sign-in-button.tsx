@@ -1,22 +1,20 @@
-import { User } from '@/entities/user';
-
 import { UiButton } from '@/shared/ui';
 
 import { useSignInUser } from '../model/use-sign-in-user';
 
 export function SignInUserButton({
   className,
-  user
+  userId
 }: {
   className?: string;
-  user: User;
+  userId: string;
 }) {
   const singInUser = useSignInUser();
   return (
     <UiButton
       className={className}
       variant="primary"
-      onClick={() => singInUser(user)}
+      onClick={() => singInUser(userId)}
     >
       Войти как
     </UiButton>

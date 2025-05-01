@@ -1,31 +1,37 @@
 import { ReactNode, useEffect, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
-import { useBoards } from '@/entities/board';
-import { useSession } from '@/entities/session';
-import { useTasks } from '@/entities/task';
-import { useUsers } from '@/entities/user';
+import { boardsListQuery } from '@/entities/board';
+import { sessionQuery } from '@/entities/session';
+import { tasksListQuery } from '@/entities/task';
+import { usersListQuery } from '@/entities/user';
 
 import { UiPageSpinner } from '@/shared/ui';
 
 export function AppLoader({ children }: { children?: ReactNode }) {
-  const loadUsers = useUsers(s => s.loadUsers);
-  const loadSession = useSession(s => s.loadSession);
-  const loadBoards = useBoards(s => s.loadBoards);
-  const loadTasks = useTasks(s => s.loadTasks);
+  const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
 
     Promise.all([
-      loadSession(),
-      loadUsers(),
-      loadBoards(),
-      loadTasks()
+      queryClient.prefetchQuery({
+        ...boardsListQuery()
+      }),
+      queryClient.prefetchQuery({
+        ...sessionQuery()
+      }),
+      queryClient.prefetchQuery({
+        ...usersListQuery()
+      }),
+      queryClient.prefetchQuery({
+        ...tasksListQuery()
+      })
     ]).finally(() => {
       setIsLoading(false);
     });
-  }, [loadSession, loadUsers, loadBoards, loadTasks]);
+  }, [queryClient]);
 
   if (isLoading) {
     return <UiPageSpinner />;

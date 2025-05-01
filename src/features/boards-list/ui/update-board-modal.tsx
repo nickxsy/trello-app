@@ -1,10 +1,10 @@
 import { Controller, useForm } from 'react-hook-form';
 
-import { BoardPartial, UpdateBoardData } from '@/entities/board';
-import { UserMultiSelect,UserSelect  } from '@/entities/user';
+import { UserMultiSelect, UserSelect } from '@/entities/user';
 
-import { UiButton, UiModal,UiTextField  } from '@/shared/ui';
+import { UiButton, UiModal, UiTextField } from '@/shared/ui';
 
+import { BoardPartial, UpdateBoardFormData } from '../model/types';
 import { useUpdateBoard } from '../model/use-update-board';
 
 export function UpdateBoardModal({
@@ -14,7 +14,7 @@ export function UpdateBoardModal({
   onClose: () => void;
   board: BoardPartial;
 }) {
-  const { control, handleSubmit } = useForm<UpdateBoardData>({
+  const { control, handleSubmit } = useForm<UpdateBoardFormData>({
     defaultValues: board
   });
 

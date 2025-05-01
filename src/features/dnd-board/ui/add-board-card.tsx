@@ -7,8 +7,7 @@ import { useBoardStore } from '../model/use-board-store';
 
 export function AddBoardCard({ colId }: { colId: string }) {
   const [create, setCreate] = useState(false);
-  const boardStore = useBoardStore();
-  const addCard = boardStore.useSelector(s => s.addBoardCard);
+  const { addBoardCard } = useBoardStore();
   const { register, handleSubmit, reset } = useForm<{ title: string }>({});
 
   if (!create) {
@@ -26,7 +25,7 @@ export function AddBoardCard({ colId }: { colId: string }) {
   return (
     <form
       onSubmit={handleSubmit(data => {
-        addCard(colId, data.title);
+        addBoardCard(colId, data.title);
         reset();
       })}
     >

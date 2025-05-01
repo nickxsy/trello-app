@@ -1,13 +1,13 @@
+import { AppProvider } from './providers/app-provider';
 import { AppLoader } from './app-loader';
-import { AppProvider } from './app-provider';
 import { AppRouter } from './app-router';
 
 export function App() {
   return (
-    <AppLoader>
-      <AppProvider>
+    <AppProvider>
+      <AppLoader>
         <AppRouter />
-      </AppProvider>
-    </AppLoader>
+      </AppLoader>
+    </AppProvider>
   );
 }

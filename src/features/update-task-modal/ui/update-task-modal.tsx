@@ -1,6 +1,7 @@
-import { Task } from '@/entities/task';
-
 import { UiButton, UiModal } from '@/shared/ui';
+
+import { Task } from '../model/types';
+import { useTask } from '../model/use-task';
 
 import { UpdateTaskForm } from './update-task-form';
 
@@ -11,9 +12,15 @@ export function UpdateTaskModal({
   onClose: (task?: Task) => void;
   taskId: string;
 }) {
+  const task = useTask(taskId);
+
+  if (!task) {
+    return;
+  }
+
   return (
     <UiModal isOpen onClose={onClose} width="md">
-      <UpdateTaskForm onSuccess={onClose} taskId={taskId}>
+      <UpdateTaskForm onSuccess={onClose} task={task}>
         <UiModal.Header>
           <h1>Редактирование задачи</h1>
         </UiModal.Header>
