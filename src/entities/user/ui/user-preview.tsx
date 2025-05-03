@@ -2,13 +2,15 @@ import clsx from 'clsx';
 
 import { getAvatarUrl } from './get-avatar-url';
 
+
+
 export function UserPreview({
   name,
   avatarId,
   size,
   className
 }: {
-  className?: string;
+  className?: string
   name: string;
   avatarId: string;
   size: 'sm' | 'md' | 'lg';

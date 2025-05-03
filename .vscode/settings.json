@@ -3,8 +3,7 @@
   "editor.lineNumbers": "off",
   "editor.folding": false,
   "editor.showFoldingControls": "never",
-
-  "editor.guides.indentation": false,
+  "editor.guides.indentation": true,
   "editor.renderLineHighlight": "none",
   "workbench.editor.decorations.badges": false,
   "workbench.editor.decorations.colors": false,
@@ -23,5 +22,7 @@
   "editor.accessibilitySupport": "off",
   "symbols.hidesExplorerArrows": true,
   "workbench.editor.compactTabs": true,
-  "zenMode.showTabs": "single"
+  "zenMode.showTabs": "single",
+  "editor.suggest.preview": true,
+  "editor.guides.bracketPairs": "active"
 }
