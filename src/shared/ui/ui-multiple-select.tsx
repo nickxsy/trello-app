@@ -1,6 +1,12 @@
-import { Combobox } from '@headlessui/react';
-import clsx from 'clsx';
 import { ReactNode, useId, useState } from 'react';
+import {
+  Combobox,
+  ComboboxButton,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxOptions
+} from '@headlessui/react';
+import clsx from 'clsx';
 
 import { ChevronUpDownIcon } from './ui-icons';
 
@@ -56,23 +62,23 @@ export function UiMultipleSelect<T extends BaseOption>({
                 {getLabel(v)}
               </div>
             ))}
-          <Combobox.Input
+          <ComboboxInput
             className={
               'pl-2 pr-2 h-full w-full outline-none grow bg-transparent'
             }
             id={id}
             onChange={e => setQuery(e.target.value)}
           />
-          <Combobox.Button>
+          <ComboboxButton>
             <ChevronUpDownIcon
               className="h-5 w-10 text-gray-400"
               aria-hidden="true"
             />
-          </Combobox.Button>
+          </ComboboxButton>
 
-          <Combobox.Options className="absolute top-full mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+          <ComboboxOptions className="absolute top-full mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
             {filteredOptions?.map(option => (
-              <Combobox.Option
+              <ComboboxOption
                 key={option.id ?? 'empty'}
                 value={option}
                 className={({ active, selected }) =>
@@ -84,9 +90,9 @@ export function UiMultipleSelect<T extends BaseOption>({
                 }
               >
                 {params => <>{renderOption(option, params)}</>}
-              </Combobox.Option>
+              </ComboboxOption>
             ))}
-          </Combobox.Options>
+          </ComboboxOptions>
         </div>
       </Combobox>
       {error && <div className="text-rose-400 text-sm">{error}</div>}

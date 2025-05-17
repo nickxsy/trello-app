@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { UiTextField } from '@/shared/ui/ui-text-field';
+import { UiTextField } from '@/shared/ui';
 
 import { useBoardStore } from '../model/use-board-store';
 

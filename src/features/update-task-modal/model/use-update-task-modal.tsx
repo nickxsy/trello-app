@@ -12,8 +12,8 @@ export function useUpdateTaskModal() {
 
   const modal = modalProps ? <UpdateTaskModal {...modalProps} /> : undefined;
 
-  const updateTask = (taskId: string) => {
-    return new Promise<Task | undefined>(res => {
+  const updateTask = (taskId: string) =>
+    new Promise<Task | undefined>(res => {
       setModalProps({
         onClose: task => {
           res(task);
@@ -22,7 +22,6 @@ export function useUpdateTaskModal() {
         taskId
       });
     });
-  };
 
   return {
     modal,

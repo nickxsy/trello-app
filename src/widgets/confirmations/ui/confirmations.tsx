@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { confirmationContext } from '@/shared/lib/confirmation';
-import { ConfirmationParams } from '@/shared/lib/confirmation';
+import { confirmationContext , ConfirmationParams } from '@/shared/lib';
 
 import { defaultConfirmationParams } from '../constants';
 import { ConfirmModalParams } from '../model/types';
@@ -15,8 +14,8 @@ export function Confirmations({ children }: { children?: React.ReactNode }) {
     modalParams?.onClose();
   };
 
-  const getConfirmation = (params: ConfirmationParams) => {
-    return new Promise<boolean>(res => {
+  const getConfirmation = (params: ConfirmationParams) =>
+    new Promise<boolean>(res => {
       setModalParams({
         ...defaultConfirmationParams,
         ...params,
@@ -31,7 +30,6 @@ export function Confirmations({ children }: { children?: React.ReactNode }) {
         }
       });
     });
-  };
 
   return (
     <confirmationContext.Provider

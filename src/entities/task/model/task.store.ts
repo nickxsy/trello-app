@@ -17,9 +17,7 @@ export type TaskStore = {
 export const useTasks = create<TaskStore>((set, get) => ({
   tasks: [],
 
-  getTaskById: id => {
-    return get().tasks.find(task => task.id === id);
-  },
+  getTaskById: id => get().tasks.find(task => task.id === id),
 
   loadTasks: async () => {
     set({

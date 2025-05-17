@@ -4,7 +4,9 @@ import { getAvatarUrl } from '@/entities/user';
 export function Profile() {
   const { currentSession } = useSession();
 
-  if (!currentSession) return null;
+  if (!currentSession) {
+    return null;
+  }
 
   return (
     <div className="flex gap-2 items-center justify-end">

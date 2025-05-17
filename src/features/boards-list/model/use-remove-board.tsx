@@ -1,6 +1,6 @@
-import { useGetConfirmation } from '@/shared/lib';
-
 import { BoardPartial, useBoards } from '@/entities/board';
+
+import { useGetConfirmation } from '@/shared/lib';
 
 import { useBoardsListDeps } from '../deps';
 
@@ -15,7 +15,9 @@ export function useRemoveBoard() {
       description: 'Вы действительно хотите удалить доску?'
     });
 
-    if (!confirmation || !canRemoveBoard(board)) return;
+    if (!confirmation || !canRemoveBoard(board)) {
+      return;
+    }
 
     removeBoard(board.id);
   };

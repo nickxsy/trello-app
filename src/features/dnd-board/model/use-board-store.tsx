@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { StoreApi, UseBoundStore } from 'zustand';
 
-import { useGetConfirmation } from '@/shared/lib/confirmation';
-import { createStrictContext, useStrictContext } from '@/shared/lib/react';
+import { type Board, boardRepository } from '@/entities/board';
 
-import { Board, boardRepository } from '@/entities/board';
+import {
+  createStrictContext,
+  useGetConfirmation,
+  useStrictContext
+} from '@/shared/lib';
 
 import { boardDepsContext } from '../deps';
 
@@ -12,6 +15,27 @@ import { BoardStore, createBoardStore } from './board.store';
 
 export const boardStoreContext =
   createStrictContext<UseBoundStore<StoreApi<BoardStore>>>();
+
+export function BoardStoreProvider({
+  children,
+  board
+}: {
+  children?: React.ReactNode;
+  board: Board;
+}) {
+  const getConfirmation = useGetConfirmation();
+  const deps = useStrictContext(boardDepsContext);
+
+  const [boardStore] = useState(() =>
+    createBoardStore({ board, getConfirmation, itemStore: deps })
+  );
+
+  return (
+    <boardStoreContext.Provider value={boardStore}>
+      {children}
+    </boardStoreContext.Provider>
+  );
+}
 
 export const useBoardStore = () => {
   const useSelector = useStrictContext(boardStoreContext);
@@ -21,28 +45,32 @@ export const useBoardStore = () => {
 export const useFetchBoard = (boardId?: string) => {
   const [board, setBoard] = useState<Board>();
 
-  useEffect(() => {
+  const fetchBoard = useCallback(() => {
     if (!boardId) {
       return;
     }
-    boardRepository.getBoard(boardId).then(board => {
-      if (!board) {
+    boardRepository.getBoard(boardId).then(data => {
+      if (!data) {
         return;
       }
-      setBoard(board);
+      setBoard(data);
     });
   }, [boardId]);
 
-  return { board };
+  useEffect(() => {
+    fetchBoard();
+  }, [fetchBoard]);
+
+  return { board, fetchBoard };
 };
 
 export const useBoardStoreFactory = (board: Board) => {
   const getConfirmation = useGetConfirmation();
   const deps = useStrictContext(boardDepsContext);
 
-  const [boardStore] = useState(() => {
-    return createBoardStore({ board, getConfirmation, itemStore: deps });
-  });
+  const [boardStore] = useState(() =>
+    createBoardStore({ board, getConfirmation, itemStore: deps })
+  );
 
   return { boardStore };
 };

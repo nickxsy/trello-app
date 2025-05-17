@@ -1,6 +1,6 @@
-import { useGetConfirmation } from '@/shared/lib/confirmation';
-
 import { useUsers } from '@/entities/user';
+
+import { useGetConfirmation } from '@/shared/lib';
 
 import { useUsersListDeps } from '../deps';
 
@@ -14,7 +14,9 @@ export function useRemoveUser() {
       description: 'Вы действительно хотите удалить пользователя?'
     });
 
-    if (!confirmation) return;
+    if (!confirmation) {
+      return;
+    }
 
     onBeforeRemoveUser(userId);
 

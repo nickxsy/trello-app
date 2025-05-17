@@ -1,10 +1,9 @@
-import { Link, generatePath } from 'react-router';
-
-import { ROUTER_PATHS } from '@/shared/constants';
+import { generatePath, Link } from 'react-router';
 
 import { useBoards } from '@/entities/board';
-import { UserPreview, useUsers } from '@/entities/user';
-import { AvatarsList } from '@/entities/user';
+import { AvatarsList,UserPreview, useUsers  } from '@/entities/user';
+
+import { ROUTER_PATHS } from '@/shared/constants';
 
 import { useBoardsListDeps } from '../deps';
 
@@ -23,12 +22,13 @@ export function BoardsList({ className }: { className?: string }) {
     <div className={className}>
       <h2 className="text-lg mb-2 font-semibold">Все доски</h2>
       <table className="w-full">
+        <thead>
         <tr>
           <th className="text-start">Название:</th>
           <th className="text-start">Админ:</th>
           <th className="text-start">Редакторы:</th>
         </tr>
-      </table>
+        </thead>
       <tbody>
         {boards.filter(canViewBoard).map(board => (
           <tr key={board.id}>
@@ -54,6 +54,7 @@ export function BoardsList({ className }: { className?: string }) {
           </tr>
         ))}
       </tbody>
+      </table>
     </div>
   );
 }

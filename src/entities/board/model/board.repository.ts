@@ -5,15 +5,13 @@ import { Board, BoardPartial } from './types';
 const BOARDS_STORAGE_KEY = 'boards_storage';
 
 export const boardRepository = {
-  getBoards: async (): Promise<BoardPartial[]> => {
-    return persistStorage.getItemSafe<Board[]>(BOARDS_STORAGE_KEY, []);
-  },
+  getBoards: async (): Promise<BoardPartial[]> =>
+    persistStorage.getItemSafe<Board[]>(BOARDS_STORAGE_KEY, []),
 
-  getBoard: async (id: string): Promise<Board | undefined> => {
-    return persistStorage
+  getBoard: async (id: string): Promise<Board | undefined> =>
+    persistStorage
       .getItemSafe<Board[]>(BOARDS_STORAGE_KEY, [])
-      .then(boards => boards.find(board => board.id === id));
-  },
+      .then(boards => boards.find(board => board.id === id)),
 
   saveBoard: async (value: Board) => {
     const boards = await boardRepository.getBoards();

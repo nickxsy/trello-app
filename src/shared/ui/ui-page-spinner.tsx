@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { useAppearanceDelay } from '../lib/react';
+import { useAppearanceDelay } from '@/shared/lib';
 
 import { UiSpinner } from './ui-spinner';
 
@@ -13,7 +13,9 @@ export function UiPageSpinner({
 }) {
   const isShown = useAppearanceDelay(isLoading, { minDisplay: 2000 });
 
-  if (!isShown) return null;
+  if (!isShown) {
+    return null;
+  }
 
   return (
     <div

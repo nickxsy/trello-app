@@ -1,21 +1,22 @@
-import { UiButton } from '@/shared/ui/ui-button';
-import { UiModal } from '@/shared/ui/ui-modal';
+import { UiButton,UiModal  } from '@/shared/ui';
 
 import { ConfirmModalParams } from '../model/types';
 
-export function ConfirmationModal({ params }: { params: ConfirmModalParams }) {
-  return (
-    <UiModal isOpen onClose={params.onClose}>
-      <UiModal.Header>{params.titile}</UiModal.Header>
-      <UiModal.Body>{params.description}</UiModal.Body>
-      <UiModal.Footer>
-        <UiButton variant="outlined" onClick={params.onClose}>
-          {params.closeText}
-        </UiButton>
-        <UiButton variant="primary" onClick={params.onConfirm}>
-          {params.confirmText}
-        </UiButton>
-      </UiModal.Footer>
-    </UiModal>
-  );
-}
+export const ConfirmationModal = ({
+  params
+}: {
+  params: ConfirmModalParams;
+}) => (
+  <UiModal isOpen onClose={params.onClose}>
+    <UiModal.Header>{params.titile}</UiModal.Header>
+    <UiModal.Body>{params.description}</UiModal.Body>
+    <UiModal.Footer>
+      <UiButton variant="outlined" onClick={params.onClose}>
+        {params.closeText}
+      </UiButton>
+      <UiButton variant="primary" onClick={params.onConfirm}>
+        {params.confirmText}
+      </UiButton>
+    </UiModal.Footer>
+  </UiModal>
+);

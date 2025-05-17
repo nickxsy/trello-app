@@ -1,6 +1,3 @@
-import { useBoards } from '@/entities/board';
-import { useSession } from '@/entities/session';
-
 import {
   SignInUserButton,
   SignOutButton,
@@ -8,6 +5,9 @@ import {
   useAbility
 } from '@/features/auth';
 import { usersListDepsContext } from '@/features/users-list';
+
+import { useBoards } from '@/entities/board';
+import { useSession } from '@/entities/session';
 
 export const UsersPageProviers = ({
   children
@@ -39,8 +39,12 @@ export const UsersPageProviers = ({
             subject('User', { id: user.id })
           );
 
-          if (canSignIn) return <SignInUserButton user={user} />;
-          if (canSignOut) return <SignOutButton />;
+          if (canSignIn) {
+            return <SignInUserButton user={user} />;
+          }
+          if (canSignOut) {
+            return <SignOutButton />;
+          }
         }
       }}
     >

@@ -1,12 +1,10 @@
+export { boardRepository } from './model/board.repository';
+export { useBoards } from './model/board.store';
 export type {
   Board,
-  BoardCol,
   BoardCard,
+  BoardCol,
   BoardPartial,
   CreateBoardData,
   UpdateBoardData
 } from './model/types';
-
-export { useBoards } from './model/board.store';
-
-export { boardRepository } from './model/board.repository';

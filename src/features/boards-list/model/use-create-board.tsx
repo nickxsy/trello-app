@@ -9,9 +9,11 @@ export function useCreateBoard() {
   const ownerId = useSession(s => s.currentSession?.userId);
 
   const createBoard = async (data: CreateBoardData, onCreate: () => void) => {
-    if (!canCreateBoard || !ownerId) return;
+    if (!canCreateBoard || !ownerId) {
+      return;
+    }
 
-    await createBoardRaw({ ...data, ownerId: ownerId });
+    await createBoardRaw({ ...data, ownerId });
 
     onCreate();
   };

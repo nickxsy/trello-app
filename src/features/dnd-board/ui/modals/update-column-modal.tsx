@@ -1,8 +1,6 @@
 import { Controller, useForm } from 'react-hook-form';
 
-import { UiButton } from '@/shared/ui/ui-button';
-import { UiModal } from '@/shared/ui/ui-modal';
-import { UiTextField } from '@/shared/ui/ui-text-field';
+import { UiButton , UiModal , UiTextField } from '@/shared/ui';
 
 import { useBoardStore } from '../../model/use-board-store';
 

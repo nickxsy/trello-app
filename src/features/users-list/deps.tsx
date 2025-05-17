@@ -1,6 +1,6 @@
-import { createStrictContext, useStrictContext } from '@/shared/lib/react';
-
 import { User } from '@/entities/user';
+
+import { createStrictContext, useStrictContext } from '@/shared/lib';
 
 type UsersListDeps = {
   onBeforeRemoveUser: (userId: string) => Promise<void>;

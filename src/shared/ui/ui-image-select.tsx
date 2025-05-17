@@ -13,9 +13,9 @@ export function UiImageSelect<T>({
   label?: string;
   error?: string;
   value?: T;
-  onChange?: (value: T) => void;
+  onChange?: (e: T) => void;
   images: T[];
-  getSrc: (value: T) => string;
+  getSrc: (e: T) => string;
 }) {
   return (
     <div className={clsx('flex flex-col gap-2', className)}>

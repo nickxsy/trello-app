@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 
 import { boardRepository } from './board.repository';
-import {
+import type {
   BoardCol,
   BoardPartial,
   CreateBoardData,
@@ -22,9 +22,7 @@ type BoardStore = {
 export const useBoards = create<BoardStore>((set, get) => ({
   boards: [],
 
-  getBoardById: id => {
-    return get().boards.find(board => board.id === id);
-  },
+  getBoardById: id => get().boards.find(board => board.id === id),
 
   loadBoards: async () => {
     set({
@@ -44,7 +42,9 @@ export const useBoards = create<BoardStore>((set, get) => ({
 
   updateBoard: async (id, data) => {
     const board = await boardRepository.getBoard(id);
-    if (!board) return;
+    if (!board) {
+      return;
+    }
 
     const newBoard = { ...board, ...data };
 

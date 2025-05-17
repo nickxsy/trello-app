@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter, redirect } from 'react-router';
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router';
 
 import { BoardPage } from '@/pages/board';
 import { BoardsPage } from '@/pages/boards';

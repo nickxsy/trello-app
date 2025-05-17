@@ -1,6 +1,6 @@
-import { RemoveIcon } from '@/shared/ui';
-
 import { BoardPartial } from '@/entities/board';
+
+import { RemoveIcon } from '@/shared/ui';
 
 import { useRemoveBoard } from '../model/use-remove-board';
 

@@ -1,25 +1,21 @@
-import { subject } from '@casl/ability';
 import { useMemo } from 'react';
-
-import { createStrictContext, useStrictContext } from '@/shared/lib/react';
+import { subject } from '@casl/ability';
 
 import { useSession } from '@/entities/session';
+
+import { createStrictContext, useStrictContext } from '@/shared/lib';
 
 import { Ability, abilityFactory } from './ability-factory';
 
 export const abilityContext = createStrictContext<Ability>();
 
-export const useAbility = () => {
-  return useStrictContext(abilityContext);
-};
+export const useAbility = () => useStrictContext(abilityContext);
 export { subject };
 
 export const useAbilityFactory = () => {
   const session = useSession(s => s.currentSession);
 
-  const ability = useMemo(() => {
-    return abilityFactory(session);
-  }, [session]);
+  const ability = useMemo(() => abilityFactory(session), [session]);
 
   return ability;
 };
